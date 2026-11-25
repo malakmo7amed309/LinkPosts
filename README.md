@@ -2,6 +2,10 @@
 
 A social web app where users sign up, log in, and scroll a live feed of posts with comments. Built with React and Vite.
 
+**Live demo:** https://malakmo7amed309.github.io/LinkPosts/
+
+> Note: the training API behind the feed (Route Academy) is temporarily down, so the demo currently shows the auth pages and app shell; the feed loads once the API is restored.
+
 ![Register page](docs/screenshot-register.png)
 
 ## Features
