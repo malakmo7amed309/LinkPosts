@@ -7,7 +7,8 @@ import NotFound from './Components/NotFound/NotFound'
 import Home from './Pages/Home/Home'
 import PostDetails from './Pages/PostDetails/PostDetails'
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
   {
     path: '/',
     element: <Layout />,
@@ -19,7 +20,9 @@ const router = createBrowserRouter([
       { path: '*', element: <NotFound /> },
     ],
   },
-])
+  ],
+  { basename: import.meta.env.BASE_URL },
+)
 
 export default function App() {
   return (

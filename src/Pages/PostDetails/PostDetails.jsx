@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import toast from 'react-hot-toast'
 import api, { getErrorMessage } from '../../api'
 
 export default function PostDetails() {
@@ -11,6 +12,25 @@ export default function PostDetails() {
   const [post, setPost] = useState(location.state?.post ?? null)
   const [loading, setLoading] = useState(!location.state?.post)
   const [error, setError] = useState('')
+  const [comment, setComment] = useState('')
+  const [sending, setSending] = useState(false)
+
+  async function addComment(e) {
+    e.preventDefault()
+    if (!comment.trim()) return
+    setSending(true)
+    try {
+      await api.post('/comments', { content: comment.trim(), post: id })
+      const { data } = await api.get(`/posts/${id}`)
+      setPost(data.post)
+      setComment('')
+      toast.success('Comment added')
+    } catch (err) {
+      toast.error(getErrorMessage(err, 'Could not add the comment.'))
+    } finally {
+      setSending(false)
+    }
+  }
 
   useEffect(() => {
     if (!localStorage.getItem('token')) {
@@ -92,6 +112,12 @@ export default function PostDetails() {
         <h2 className="text-xl font-semibold text-white mb-4">
           Comments ({comments.length})
         </h2>
+
+        <form onSubmit={addComment} className="mb-5 flex gap-2">
+          <label htmlFor="newComment" className="sr-only">Write a comment</label>
+          <input id="newComment" value={comment} onChange={(e) => setComment(e.target.value)} maxLength={300} placeholder="Write a comment..." className="flex-1 bg-gray-900 text-white rounded-xl p-3 placeholder-gray-500 border border-gray-700 focus:border-blue-500 outline-none" />
+          <button type="submit" disabled={sending || !comment.trim()} className="px-5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50">Send</button>
+        </form>
 
         {comments.length === 0 ? (
           <p className="text-gray-400">No comments yet.</p>

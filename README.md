@@ -4,7 +4,7 @@ A social web app where users sign up, log in, and scroll a live feed of posts wi
 
 **Live demo:** https://malakmo7amed309.github.io/LinkPosts/
 
-> Note: the training API behind the feed (Route Academy) is temporarily down, so the demo currently shows the auth pages and app shell; the feed loads once the API is restored.
+> Note: if the training API behind the feed (Route Academy) cannot be reached, the app switches automatically to a built-in demo backend (a banner tells you), so every feature still works with data stored in your browser.
 
 ![Register page](docs/screenshot-register.png)
 
@@ -16,6 +16,8 @@ A social web app where users sign up, log in, and scroll a live feed of posts wi
 - Post feed with author, timestamp, images and comment counts
 - Post details page showing the full post with all its comments
 - Loading spinners, error states with retry, and toast notifications
+- Write posts (with optional image), like posts and comment on posts
+- Search the feed
 - Logout from the navbar
 - Responsive layout with a mobile menu (Tailwind CSS)
 
